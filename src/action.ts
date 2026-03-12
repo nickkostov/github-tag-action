@@ -11,9 +11,8 @@ import {
   getValidTags,
   mapCustomReleaseRules,
   mergeWithDefaultChangelogRules,
-} from './utils';
-import { createTag } from './github';
-import { Await } from './ts';
+} from './utils.js';
+import { createTag } from './github.js';
 
 export default async function main() {
   const defaultBump = core.getInput('default_bump') as ReleaseType | 'false';
@@ -80,7 +79,7 @@ export default async function main() {
     prefixRegex
   );
 
-  let commits: Await<ReturnType<typeof getCommits>>;
+  let commits: Awaited<ReturnType<typeof getCommits>>;
 
   let newVersion: string;
 
