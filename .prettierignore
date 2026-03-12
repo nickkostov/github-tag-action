@@ -1,6 +1,7 @@
 /.github/
 /.vscode/
 /lib/
+/dist/
 /docs/
 /*.json
 /*.js
