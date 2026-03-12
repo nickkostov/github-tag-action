@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v6
       - name: Bump version and push tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v6.2
+        uses: nickkostov/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create a GitHub release
