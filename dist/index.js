@@ -70289,10 +70289,12 @@ async function main() {
     const newTag = `${tagPrefix}${newVersion}`;
     info(`New tag after applying prefix is ${newTag}.`);
     setOutput('new_tag', newTag);
+    const presetConfig = src_createPreset({
+        types: mergeWithDefaultChangelogRules(mappedReleaseRules),
+    });
     const changelog = await generateNotes({
-        config: src_createPreset({
-            types: mergeWithDefaultChangelogRules(mappedReleaseRules),
-        }),
+        parserOpts: presetConfig.parser,
+        writerOpts: presetConfig.writer,
     }, {
         commits,
         cwd: process.cwd(),

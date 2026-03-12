@@ -192,11 +192,14 @@ export default async function main() {
   core.info(`New tag after applying prefix is ${newTag}.`);
   core.setOutput('new_tag', newTag);
 
+  const presetConfig = conventionalChangelogConventionalcommits({
+    types: mergeWithDefaultChangelogRules(mappedReleaseRules),
+  });
+
   const changelog = await generateNotes(
     {
-      config: conventionalChangelogConventionalcommits({
-        types: mergeWithDefaultChangelogRules(mappedReleaseRules),
-      }),
+      parserOpts: presetConfig.parser,
+      writerOpts: presetConfig.writer,
     },
     {
       commits,
