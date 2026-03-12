@@ -1,12 +1,12 @@
 import * as core from '@actions/core';
 import { prerelease, rcompare, valid } from 'semver';
 // @ts-ignore
-import DEFAULT_RELEASE_TYPES from '@semantic-release/commit-analyzer/lib/default-release-types';
-import { compareCommits, listTags } from './github';
-import { defaultChangelogRules } from './defaults';
-import { Await } from './ts';
+import DEFAULT_RELEASE_TYPES from '@semantic-release/commit-analyzer/lib/default-release-types.js';
+import { compareCommits, listTags } from './github.js';
+import { defaultChangelogRules } from './defaults.js';
 
-type Tags = Await<ReturnType<typeof listTags>>;
+type Tags = Awaited<ReturnType<typeof listTags>>;
+type Commits = Awaited<ReturnType<typeof compareCommits>>;
 
 export async function getValidTags(
   prefixRegex: RegExp,
@@ -42,8 +42,8 @@ export async function getCommits(
   const commits = await compareCommits(baseRef, headRef);
 
   return commits
-    .filter((commit) => !!commit.commit.message)
-    .map((commit) => ({
+    .filter((commit: Commits[number]) => !!commit.commit.message)
+    .map((commit: Commits[number]) => ({
       message: commit.commit.message,
       hash: commit.sha,
     }));

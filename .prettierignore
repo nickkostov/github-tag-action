@@ -4,5 +4,9 @@
 /docs/
 /*.json
 /*.js
+/*.cjs
 /*.yml
 /*.md
+*.gitignore
+*.prettierignore
+LICENSE
