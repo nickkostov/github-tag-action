@@ -2,6 +2,8 @@ import * as core from '@actions/core';
 import { gte, inc, parse, ReleaseType, SemVer, valid } from 'semver';
 import { analyzeCommits } from '@semantic-release/commit-analyzer';
 import { generateNotes } from '@semantic-release/release-notes-generator';
+import conventionalChangelogConventionalcommits from 'conventional-changelog-conventionalcommits';
+
 import {
   getBranchFromRef,
   isPr,
@@ -192,10 +194,9 @@ export default async function main() {
 
   const changelog = await generateNotes(
     {
-      preset: 'conventionalcommits',
-      presetConfig: {
+      config: conventionalChangelogConventionalcommits({
         types: mergeWithDefaultChangelogRules(mappedReleaseRules),
-      },
+      }),
     },
     {
       commits,
@@ -217,7 +218,7 @@ export default async function main() {
     return;
   }
 
-  if (validTags.map((tag) => tag.name).includes(newTag)) {
+  if (validTags.map((tag: { name: string }) => tag.name).includes(newTag)) {
     core.info('This tag already exists. Skipping the tag creation.');
     return;
   }
