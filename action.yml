@@ -1,4 +1,4 @@
-name: "GitHub Tag"
+name: "GitHub Tagging"
 description: "Bump and push git tag on merge"
 author: "Mathieu Dutour"
 outputs:
