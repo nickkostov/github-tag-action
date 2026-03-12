@@ -26,7 +26,7 @@ export function getOctokitSingleton() {
 export async function listTags(
   shouldFetchAllTags = false,
   fetchedTags: Tag[] = [],
-  page = 1
+  page = 1,
 ): Promise<Tag[]> {
   const octokit = getOctokitSingleton();
 
@@ -59,7 +59,7 @@ export async function compareCommits(baseRef: string, headRef: string) {
 export async function createTag(
   newTag: string,
   createAnnotatedTag: boolean,
-  GITHUB_SHA: string
+  GITHUB_SHA: string,
 ) {
   const octokit = getOctokitSingleton();
   let annotatedTag:
