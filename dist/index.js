@@ -70295,6 +70295,7 @@ async function main() {
         }),
     }, {
         commits,
+        cwd: process.cwd(),
         logger: { log: console.info.bind(console) },
         options: {
             repositoryUrl: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}`,

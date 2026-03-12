@@ -18,3 +18,23 @@ jobs:
       - run: npm run test
       - run: npm run check
       - run: npm run build
+      - name: Get Bot App Token
+        uses: actions/create-github-app-token@v2
+        id: app_token
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ steps.app_token.outputs.token }}
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Autotag
+        id: tag-pr
+        uses: nickkostov/github-tag-action@master
+        with:
+          release_branches: master
+          default_bump: patch
+          github_token: ${{ steps.app_token.outputs.token }}
